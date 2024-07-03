@@ -22,7 +22,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("students/{id}")
-    public ResponseEntity<?> viewStudentId(int id) {
+    public ResponseEntity<?> viewStudentId(@PathVariable int id) {
         Student u = studentService.getStudentById(id);
         if(u == null) {
             LOGGER.error("Student not found");
@@ -54,8 +54,8 @@ public class StudentController {
         ApiResponse<List<Student>> response = new ApiResponse<>(1, 200, "Student found", list);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("students/sort")
-    public ResponseEntity<?> sortStudentsByName(@RequestParam String name) {
+    @GetMapping("students/sortByName")
+    public ResponseEntity<?> sortStudentsByName() {
         List<Student> listStudent =  studentService.sortStudentsByName();
         if(listStudent.size() == 0) {
             LOGGER.error("Student not found");
